@@ -18,7 +18,7 @@ imagedata byte order := LITTLEENDIAN
 ;matrix axis label [1] := bin coordinate
 !matrix size [1] := 125
 !scaling factor (mm/pixel) [1] := 2.03125
-!number of projections := 150
+!number of projections := 126
 !extent of rotation := 360
 !process status := acquired
 

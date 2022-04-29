@@ -4,12 +4,17 @@ from tqdm.auto import tqdm
 import numpy
 from pathlib import Path
 import os
+import psutil
 
 fname, url= sorted(brainweb.utils.LINKS.items())[0]
 files = brainweb.get_file(fname, url, ".")
 data = brainweb.load_file(fname)
 
 path = Path(__file__).resolve().parent
+
+dir = os.path.dirname(__file__)
+
+msg = STIR.MessageRedirector(dir+"/info.txt", dir+"/warnings.txt", dir+"/error.txt")
 
 brainweb.seed(1337)
 
@@ -50,7 +55,9 @@ bp = am.backward(sino)
 print("all done with individuals")
 
 sino = am.forward(fdg)
-for i in range (10):
+for i in range (100):
     bp = am.backward(sino)
     sino = am.forward(bp)
+    print('The CPU usage is: ', psutil.cpu_percent(4))
+    print('RAM memory % used:', psutil.virtual_memory()[2])
 

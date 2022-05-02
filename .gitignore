@@ -4,4 +4,6 @@ tmp_*.s
 
 # log files 
 *.txt
-!valgrind-out.txt
+
+#brainweb
+subject_*

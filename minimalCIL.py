@@ -1,6 +1,8 @@
 import sirf.STIR as STIR
 import cil.optimisation.algorithms as algorithms
 import cil.optimisation.functions as functions
+import cil.optimisation.operators as operators
+from cil.optimisation.algorithms.ADMM import LADMM
 import brainweb
 from tqdm.auto import tqdm
 import numpy
@@ -80,14 +82,15 @@ try:
 except:
     print("OSEM failed")
 
-try:
-    KL = functions.KullbackLeibler(b=sino)
-    algorithm = algorithms.FISTA(initial = bp, f = KL)
-    algorithm.run()
-    out = algorithm.solution
-    print("CIL algo complete")
-except:
-    print("CIL algo failed")
+g = functions.IndicatorBox(lower=0)
+I = operators.IdentityOperator(bp)
+KL = functions.LeastSquares(A = am, b=sino)
+algorithm = LADMM(initial = bp.get_uniform_copy(1), f = KL, g=g,  operator = I, sigma = 1/am.norm(), tau = 1/am.norm(), maxiter=100) 
+algorithm.run(verbose=2)
+out = algorithm.solution
+algorithm = algorithms.FISTA(initial = bp.get_uniform_copy(1), f = KL, maxiter=100) 
+algorithm.run(verbose=2)
+out = algorithm.solution
 
 
 

@@ -12,6 +12,7 @@ from tqdm.auto import tqdm
 import numpy
 from pathlib import Path
 import numpy as np
+STIR.set_default_num_omp_threads()
 
 dir = os.path.dirname(__file__)
 
@@ -102,7 +103,8 @@ normA = am.norm()
 tau=1/normA
 sigma=1/normA
 
-grad = operators.GradientOperator(fdg)
+## using numpy backend to avoid segmentation fault ##
+grad = operators.GradientOperator(fdg, backend = 'numpy')
 R = functions.MixedL21Norm()
 KL = functions.KullbackLeibler(b=noisy,epsilon = 0.0001)
 g = functions.IndicatorBox(lower=0)
@@ -111,6 +113,8 @@ F = functions.BlockFunction(KL,R)
 K = operators.BlockOperator(am,grad)
 
 algorithm = algorithms.LADMM(initial = bp.get_uniform_copy(0.5), f = g, g=F, operator = K, sigma = sigma, tau = tau, max_iteration=100,update_objective_interval=1, use_axpby=False) 
+
+## fails here if using a c-backend for grad ##
 algorithm.run(verbose=2)
 out = algorithm.solution
 

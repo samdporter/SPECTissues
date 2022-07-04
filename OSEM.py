@@ -70,14 +70,18 @@ def main():
     reconstructor0.set_num_subsets(21)
     reconstructor0.set_num_subiterations(42)
     reconstructor0.set_up(fdg)
+    print("reconstructor 0 set up")
     reconstructor1 = STIR.OSMAPOSLReconstructor()
     reconstructor1.set_objective_function(obj_fun0)
     reconstructor1.set_num_subsets(21)
     reconstructor1.set_num_subiterations(42)
     reconstructor1.set_up(amyl)
+    print("reconstructor 1 set up")
 
     reconstructor0.reconstruct(fdg)
+    print("fdg reconstructed")
     reconstructor0.reconstruct(amyl)
+    print("amyl reconstructed")
 
     fdg.show()
     amyl.show()

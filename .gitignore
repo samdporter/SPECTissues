@@ -4,10 +4,13 @@ tmp_*.s
 
 # log files 
 *.txt
-!valgrind-out.txt
+!valgrind-output.txt
+!valgrind-output-full.txt
 
 #brainweb
 subject_*
 
 #valgrind core file
 *.core*
+
+/outputs

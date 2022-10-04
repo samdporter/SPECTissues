@@ -1,63 +1,49 @@
 import sirf.STIR as STIR
-import brainweb
-from tqdm.auto import tqdm
-import numpy
-from pathlib import Path
-import os
-import psutil
 
-fname, url= sorted(brainweb.utils.LINKS.items())[0]
-files = brainweb.get_file(fname, url, ".")
-data = brainweb.load_file(fname)
+keep_views_in_cache = False # 
 
-path = Path(__file__).resolve().parent
+msg = STIR.MessageRedirector("info.txt", "warnings.txt", "error.txt")
 
-dir = os.path.dirname(__file__)
+templ_sino = STIR.AcquisitionData("template_sinogram.hs") # create an empty sinogram using a template
 
-msg = STIR.MessageRedirector(dir+"/info.txt", dir+"/warnings.txt", dir+"/error.txt")
+# create an empty image using the template data
+im = templ_sino.create_uniform_image(0)
+im = im.zoom_image(zooms = (0.5,1,1)) #zoom because SPECT is 360 degrees (based on PET)
 
-brainweb.seed(1337)
+# create some shapes and add to the image 
+shape = STIR.EllipticCylinder()
+shape.set_length(400)
+shape.set_radii((20,20))
+shape.set_origin((0, 20, -10))
+im.add_shape(shape, scale = 1)
+shape.set_radii((70,60))
+shape.set_origin((0, 0, 0))
+im.add_shape(shape, scale = 0.5)
 
-for f in tqdm([fname], desc="mMR ground truths", unit="subject"):
-    vol = brainweb.get_mmr_fromfile(f, petNoise=1, t1Noise=0.75, t2Noise=0.75, petSigma=1, t1Sigma=1, t2Sigma=1)
-fdg_arr = vol['PET']
-
-# Select central slice
-central_slice = fdg_arr.shape[0]//2
-fdg_arr = fdg_arr[central_slice, :, :]
-
-# Select a central ROI with 120x120
-idim = [120,120]
-offset = (numpy.array(fdg_arr.shape) - numpy.array(idim)) // 2
-fdg_arr = fdg_arr[offset[0]:offset[0]+idim[0], offset[1]:offset[1]+idim[1]]
-
-# Now we make sure our image is of shape (1, 120, 120) 
-fdg_arr = fdg_arr[numpy.newaxis,...]
-
-templ_sino = STIR.AcquisitionData(os.path.join(path,"template_sinogram.hs")) # create an empty sinogram using a template
-
-im = STIR.ImageData(templ_sino)
-dim = fdg_arr.shape
-voxel_size=im.voxel_sizes()
-im.initialise(dim,(voxel_size[0]*2, voxel_size[1], voxel_size[2]))
-fdg = im.clone().fill(fdg_arr)
-
+# set up projection matrix objecy
 acq_model_matrix = STIR.SPECTUBMatrix()
 acq_model_matrix.set_resolution_model(0,0,full_3D=False)
+acq_model_matrix.set_keep_all_views_in_cache(keep_views_in_cache) # choose whethe to keep views in cache
+
+# create acquisiton model using projection matrix
 am = STIR.AcquisitionModelUsingMatrix(acq_model_matrix)
-am.set_up(templ_sino, fdg)
+am.set_up(templ_sino, im)
 
-sino = am.forward(fdg)
-bp = am.backward(sino)
-sino = am.forward(bp)
-bp = am.backward(sino)
+# forward project to simulate noiseless data
+sino = am.forward(im)
 
-print("all done with individuals")
+# create poisson log likelihood data fidelity term
+obj_fun = STIR.make_Poisson_loglikelihood(sino)
+obj_fun.set_acquisition_model(am)
 
-sino = am.forward(fdg)
-for i in range (100):
-    bp = am.backward(sino)
-    sino = am.forward(bp)
-    print('The CPU usage is: ', psutil.cpu_percent(4))
-    print('RAM memory % used:', psutil.virtual_memory()[2])
+# set up reconstructor object
+reconstructor = STIR.OSMAPOSLReconstructor()
+reconstructor.set_objective_function(obj_fun)
+reconstructor.set_num_subsets(21)
+reconstructor.set_num_subiterations(21)
+reconstructor.set_up(im)
 
+# reconstruct and show image
+result = im.get_uniform_copy(1)
+reconstructor.reconstruct(result)
+result.show()

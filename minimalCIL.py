@@ -59,6 +59,7 @@ uMap = im.clone().fill(uMap_arr)
 acq_model_matrix = STIR.SPECTUBMatrix()
 acq_model_matrix.set_resolution_model(0,0,full_3D=False )
 acq_model_matrix.set_attenuation_image(uMap)
+acq_model_matrix.set_keep_all_views_in_cache(True)
 am = STIR.AcquisitionModelUsingMatrix(acq_model_matrix)
 am.set_up(templ_sino, fdg)
 
@@ -66,6 +67,8 @@ sino = am.forward(fdg)
 bp = am.backward(sino)
 sino = am.forward(bp)
 bp = am.backward(sino)
+
+bp.show()
 
 sino_arr = am.forward(fdg).as_array()
 noisy_arr = np.random.poisson(sino_arr/10)*10
@@ -95,10 +98,11 @@ try:
     reconstructor.set_up(bp)
 
     reconstructor.reconstruct(bp)
+    bp = reconstructor.get_current_estimate()
     print("OSEM successful")
 except:
     print("OSEM failed")
-
+bp.show()
 normA = am.norm()
 tau=1/normA
 sigma=1/normA

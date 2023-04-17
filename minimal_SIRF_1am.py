@@ -1,3 +1,4 @@
+#%%
 import sirf.STIR as STIR
 
 keep_views_in_cache = False # 
@@ -20,30 +21,24 @@ shape.set_radii((70,60))
 shape.set_origin((0, 0, 0))
 im.add_shape(shape, scale = 0.5)
 
+#%%
 # set up projection matrix objecy
-acq_model_matrix = STIR.SPECTUBMatrix()
-acq_model_matrix.set_resolution_model(0,0,full_3D=False)
-acq_model_matrix.set_keep_all_views_in_cache(keep_views_in_cache) # choose whethe to keep views in cache
+acq_model_matrix_1 = STIR.SPECTUBMatrix()
+acq_model_matrix_1.set_keep_all_views_in_cache(keep_views_in_cache) # choose whethe to keep views in cache
+acq_model_matrix_1.set_resolution_model(0,0,full_3D=False)
 
+#%%
 # create acquisiton model using projection matrix
-am = STIR.AcquisitionModelUsingMatrix(acq_model_matrix)
-am.set_up(templ_sino, im)
+acq_model_1 = STIR.AcquisitionModelUsingMatrix(acq_model_matrix_1)
+acq_model_1.set_up(templ_sino, im)
 
+#%%
 # forward project to simulate noiseless data
-sino = am.forward(im)
+sino_1 = acq_model_1.forward(im)
 
-# create poisson log likelihood data fidelity term
-obj_fun = STIR.make_Poisson_loglikelihood(sino)
-obj_fun.set_acquisition_model(am)
+#%%
+bp_1 = acq_model_1.backward(sino_1)
 
-# set up reconstructor object
-reconstructor = STIR.OSMAPOSLReconstructor()
-reconstructor.set_objective_function(obj_fun)
-reconstructor.set_num_subsets(21)
-reconstructor.set_num_subiterations(21)
-reconstructor.set_up(im)
+#%%
+bp_1 = acq_model_1.backward(sino_1)
 
-# reconstruct and show image
-result = im.get_uniform_copy(1)
-reconstructor.reconstruct(result)
-result.show()

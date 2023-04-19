@@ -13,3 +13,8 @@ subject_*
 *.core*
 
 /outputs
+
+# image outputs
+*.ahv
+*.hv
+*.v

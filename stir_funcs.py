@@ -16,7 +16,7 @@ def make_objective_function(templ_sino, projector):
     obj_function = PoissonLogLikelihoodWithLinearModelForMeanAndProjData3DFloat()
     obj_function.set_proj_data_sptr(templ_sino)
     obj_function.set_projector_pair_sptr(projector)
-    obj_function.set_recompute_sensitivity(False)
+    obj_function.set_recompute_sensitivity(True)
     return obj_function
 
 def make_reconstructor(im, obj_function, subsets=7, subiters=7):

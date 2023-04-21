@@ -1,17 +1,19 @@
 #%%
 import os
 
-import sirf.STIR as STIR
+from sirf.STIR import MessageRedirector, AcquisitionData
+
+AcquisitionData.set_storage_scheme('memory')
 
 from sirf_funcs import (make_acquisition_model, make_objective_function,
                         make_reconstructor, make_shape)
 
 keep_views_in_cache = True # 
 
-msg = STIR.MessageRedirector("info.txt", "warnings.txt", "error.txt")
+msg = MessageRedirector("info.txt", "warnings.txt", "error.txt")
 
-templ_sino_1 = STIR.AcquisitionData("template_sinogram.hs") # create an empty sinogram using a template
-templ_sino_2 = STIR.AcquisitionData("template_sinogram.hs") # create an empty sinogram using a template
+templ_sino_1 = AcquisitionData("template_sinogram.hs") # create an empty sinogram using a template
+templ_sino_2 = AcquisitionData("template_sinogram.hs") # create an empty sinogram using a template
 
 # create an empty image using the template data
 im_1 = templ_sino_1.create_uniform_image(0)
@@ -28,8 +30,10 @@ if not os.path.exists('init.hv'):
     im_1.write('init.hv')
 
 #%%
-acq_model_1 = make_acquisition_model(templ_sino_1, im_1)
-acq_model_2 = make_acquisition_model(templ_sino_2, im_2)
+acq_model_1 = make_acquisition_model(templ_sino_1, im_1, 
+                                     keep_views_in_cache=keep_views_in_cache)
+acq_model_2 = make_acquisition_model(templ_sino_2, im_2, 
+                                     keep_views_in_cache=keep_views_in_cache)
 
 # forward project to simulate noiseless data
 sino_1 = acq_model_1.forward(im_1)
@@ -57,3 +61,4 @@ recon_2.reconstruct(init_image_2)
 
 init_image_1.write("recon_1_sirf.hv")
 init_image_2.write("recon_2_sirf.hv")
+# %%

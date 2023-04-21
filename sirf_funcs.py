@@ -4,11 +4,11 @@ from sirf.STIR import (SPECTUBMatrix, AcquisitionModelUsingMatrix,
                        make_Poisson_loglikelihood, OSMAPOSLReconstructor, 
                        EllipticCylinder)
 
-def make_acquisition_model(templ_sino, im, keep_views_in_cache=False):
+def make_acquisition_model(templ_sino, im, keep_views_in_cache=True):
     # set up projection matrix objecy
     acq_model_matrix = SPECTUBMatrix()
     acq_model_matrix.set_keep_all_views_in_cache(keep_views_in_cache) # choose whethe to keep views in cache
-    acq_model_matrix.set_resolution_model(0,0,full_3D=False)
+    acq_model_matrix.set_resolution_model(0.1,0.1,full_3D=False)
 
     # make acquisiton model using projection matrix
     acq_model = AcquisitionModelUsingMatrix(acq_model_matrix)

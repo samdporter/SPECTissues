@@ -17,8 +17,8 @@ target_1.fill(1.0)
 target_2 = im.get_empty_copy()
 target_2.fill(1.0)
 
-projector_1 = make_projector(templ_sino_1, im)
-projector_2 = make_projector(templ_sino_2, im)
+projector_1 = make_projector(templ_sino_1, im, keep_views_in_cache=keep_views_in_cache)
+projector_2 = make_projector(templ_sino_2, im, keep_views_in_cache=keep_views_in_cache)
 
 projdata_1 = stir.ProjDataInMemory(templ_sino_1.get_exam_info(), templ_sino_1.get_proj_data_info())
 projdata_2 = stir.ProjDataInMemory(templ_sino_2.get_exam_info(), templ_sino_2.get_proj_data_info())

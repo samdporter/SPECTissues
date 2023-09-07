@@ -1,0 +1,111 @@
+==1140994== Memcheck, a memory error detector
+==1140994== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==1140994== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==1140994== Command: python3 SPECT_issues/resolution_issue_stir.py
+==1140994== Parent PID: 405189
+==1140994== 
+==1140994== Conditional jump or move depends on uninitialised value(s)
+==1140994==    at 0x64C3CB2: SPECTUB::max_psf_szb(SPECTUB::angle_type*, SPECTUB::wmh_type&) (SPECTUB_Tools.cxx:788)
+==1140994==    by 0x64C099F: stir::ProjMatrixByBinSPECTUB::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjMatrixByBinSPECTUB.cxx:583)
+==1140994==    by 0x64DA33E: stir::ForwardProjectorByBinUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ForwardProjectorByBinUsingProjMatrixByBin.cxx:100)
+==1140994==    by 0x64DDD07: stir::ProjectorByBinPair::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPair.cxx:47)
+==1140994==    by 0x64DE10C: stir::ProjectorByBinPairUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPairUsingProjMatrixByBin.cxx:88)
+==1140994==    by 0x651983E: stir::PoissonLogLikelihoodWithLinearModelForMeanAndProjData<stir::DiscretisedDensity<3, float> >::set_up_before_sensitivity(std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (PoissonLogLikelihoodWithLinearModelForMeanAndProjData.cxx:574)
+==1140994==    by 0x6514A82: stir::PoissonLogLikelihoodWithLinearModelForMean<stir::DiscretisedDensity<3, float> >::set_up(std::shared_ptr<stir::DiscretisedDensity<3, float> > const&) (PoissonLogLikelihoodWithLinearModelForMean.cxx:290)
+==1140994==    by 0x632ABAB: _wrap_PoissonLogLikelihoodWithLinearModelForMean3DFloat_set_up (stirPYTHON_wrap.cxx:142293)
+==1140994==    by 0x273F89: ??? (in /usr/bin/python3.10)
+==1140994==    by 0x250F51: _PyEval_EvalFrameDefault (in /usr/bin/python3.10)
+==1140994==    by 0x341E55: ??? (in /usr/bin/python3.10)
+==1140994==    by 0x341CF5: PyEval_EvalCode (in /usr/bin/python3.10)
+==1140994== 
+==1140994== Conditional jump or move depends on uninitialised value(s)
+==1140994==    at 0x64C3713: SPECTUB::calc_sigma_h(SPECTUB::voxel_type, SPECTUB::collim_type) (SPECTUB_Tools.cxx:815)
+==1140994==    by 0x64C3D47: SPECTUB::max_psf_szb(SPECTUB::angle_type*, SPECTUB::wmh_type&) (SPECTUB_Tools.cxx:794)
+==1140994==    by 0x64C099F: stir::ProjMatrixByBinSPECTUB::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjMatrixByBinSPECTUB.cxx:583)
+==1140994==    by 0x64DA33E: stir::ForwardProjectorByBinUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ForwardProjectorByBinUsingProjMatrixByBin.cxx:100)
+==1140994==    by 0x64DDD07: stir::ProjectorByBinPair::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPair.cxx:47)
+==1140994==    by 0x64DE10C: stir::ProjectorByBinPairUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPairUsingProjMatrixByBin.cxx:88)
+==1140994==    by 0x651983E: stir::PoissonLogLikelihoodWithLinearModelForMeanAndProjData<stir::DiscretisedDensity<3, float> >::set_up_before_sensitivity(std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (PoissonLogLikelihoodWithLinearModelForMeanAndProjData.cxx:574)
+==1140994==    by 0x6514A82: stir::PoissonLogLikelihoodWithLinearModelForMean<stir::DiscretisedDensity<3, float> >::set_up(std::shared_ptr<stir::DiscretisedDensity<3, float> > const&) (PoissonLogLikelihoodWithLinearModelForMean.cxx:290)
+==1140994==    by 0x632ABAB: _wrap_PoissonLogLikelihoodWithLinearModelForMean3DFloat_set_up (stirPYTHON_wrap.cxx:142293)
+==1140994==    by 0x273F89: ??? (in /usr/bin/python3.10)
+==1140994==    by 0x250F51: _PyEval_EvalFrameDefault (in /usr/bin/python3.10)
+==1140994==    by 0x341E55: ??? (in /usr/bin/python3.10)
+==1140994== 
+==1140994== Conditional jump or move depends on uninitialised value(s)
+==1140994==    at 0x64C6B81: SPECTUB::voxel_projection(SPECTUB::voxel_type*, float*, float, SPECTUB::wmh_type&) (SPECTUB_Weight3d.cxx:534)
+==1140994==    by 0x64C7AEE: SPECTUB::wm_size_estimation(int, SPECTUB::angle_type const*, SPECTUB::voxel_type, SPECTUB::bin_type, SPECTUB::volume_type const&, SPECTUB::proj_type const&, bool const*, bool const*, int, SPECTUB::discrf_type const*, int*, SPECTUB::wmh_type&, float const*) (SPECTUB_Weight3d.cxx:385)
+==1140994==    by 0x64C0DD9: stir::ProjMatrixByBinSPECTUB::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjMatrixByBinSPECTUB.cxx:650)
+==1140994==    by 0x64DA33E: stir::ForwardProjectorByBinUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ForwardProjectorByBinUsingProjMatrixByBin.cxx:100)
+==1140994==    by 0x64DDD07: stir::ProjectorByBinPair::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPair.cxx:47)
+==1140994==    by 0x64DE10C: stir::ProjectorByBinPairUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPairUsingProjMatrixByBin.cxx:88)
+==1140994==    by 0x651983E: stir::PoissonLogLikelihoodWithLinearModelForMeanAndProjData<stir::DiscretisedDensity<3, float> >::set_up_before_sensitivity(std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (PoissonLogLikelihoodWithLinearModelForMeanAndProjData.cxx:574)
+==1140994==    by 0x6514A82: stir::PoissonLogLikelihoodWithLinearModelForMean<stir::DiscretisedDensity<3, float> >::set_up(std::shared_ptr<stir::DiscretisedDensity<3, float> > const&) (PoissonLogLikelihoodWithLinearModelForMean.cxx:290)
+==1140994==    by 0x632ABAB: _wrap_PoissonLogLikelihoodWithLinearModelForMean3DFloat_set_up (stirPYTHON_wrap.cxx:142293)
+==1140994==    by 0x273F89: ??? (in /usr/bin/python3.10)
+==1140994==    by 0x250F51: _PyEval_EvalFrameDefault (in /usr/bin/python3.10)
+==1140994==    by 0x341E55: ??? (in /usr/bin/python3.10)
+==1140994== 
+==1140994== Conditional jump or move depends on uninitialised value(s)
+==1140994==    at 0x64C3713: SPECTUB::calc_sigma_h(SPECTUB::voxel_type, SPECTUB::collim_type) (SPECTUB_Tools.cxx:815)
+==1140994==    by 0x64C72FD: SPECTUB::fill_psf_2d(SPECTUB::psf2da_type*, SPECTUB::psf1d_type*, SPECTUB::voxel_type const&, SPECTUB::discrf_type const*, float, SPECTUB::wmh_type&) (SPECTUB_Weight3d.cxx:599)
+==1140994==    by 0x64C7C7B: SPECTUB::wm_size_estimation(int, SPECTUB::angle_type const*, SPECTUB::voxel_type, SPECTUB::bin_type, SPECTUB::volume_type const&, SPECTUB::proj_type const&, bool const*, bool const*, int, SPECTUB::discrf_type const*, int*, SPECTUB::wmh_type&, float const*) (SPECTUB_Weight3d.cxx:402)
+==1140994==    by 0x64C0DD9: stir::ProjMatrixByBinSPECTUB::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjMatrixByBinSPECTUB.cxx:650)
+==1140994==    by 0x64DA33E: stir::ForwardProjectorByBinUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ForwardProjectorByBinUsingProjMatrixByBin.cxx:100)
+==1140994==    by 0x64DDD07: stir::ProjectorByBinPair::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPair.cxx:47)
+==1140994==    by 0x64DE10C: stir::ProjectorByBinPairUsingProjMatrixByBin::set_up(std::shared_ptr<stir::ProjDataInfo const> const&, std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (ProjectorByBinPairUsingProjMatrixByBin.cxx:88)
+==1140994==    by 0x651983E: stir::PoissonLogLikelihoodWithLinearModelForMeanAndProjData<stir::DiscretisedDensity<3, float> >::set_up_before_sensitivity(std::shared_ptr<stir::DiscretisedDensity<3, float> const> const&) (PoissonLogLikelihoodWithLinearModelForMeanAndProjData.cxx:574)
+==1140994==    by 0x6514A82: stir::PoissonLogLikelihoodWithLinearModelForMean<stir::DiscretisedDensity<3, float> >::set_up(std::shared_ptr<stir::DiscretisedDensity<3, float> > const&) (PoissonLogLikelihoodWithLinearModelForMean.cxx:290)
+==1140994==    by 0x632ABAB: _wrap_PoissonLogLikelihoodWithLinearModelForMean3DFloat_set_up (stirPYTHON_wrap.cxx:142293)
+==1140994==    by 0x273F89: ??? (in /usr/bin/python3.10)
+==1140994==    by 0x250F51: _PyEval_EvalFrameDefault (in /usr/bin/python3.10)
+==1140994== 
+==1140994== Thread 27:
+==1140994== Conditional jump or move depends on uninitialised value(s)
+==1140994==    at 0x64C6B81: SPECTUB::voxel_projection(SPECTUB::voxel_type*, float*, float, SPECTUB::wmh_type&) (SPECTUB_Weight3d.cxx:534)
+==1140994==    by 0x64C88AF: SPECTUB::wm_calculation(int, SPECTUB::angle_type const*, SPECTUB::voxel_type, SPECTUB::bin_type, SPECTUB::volume_type const&, SPECTUB::proj_type const&, float const*, bool const*, bool const*, int, SPECTUB::discrf_type const*, int const*, SPECTUB::wm_da_type&, SPECTUB::wmh_type&, float const*) (SPECTUB_Weight3d.cxx:177)
+==1140994==    by 0x64BE7DF: stir::ProjMatrixByBinSPECTUB::compute_one_subset(int, float const*) const (ProjMatrixByBinSPECTUB.cxx:799)
+==1140994==    by 0x64BF0B9: stir::ProjMatrixByBinSPECTUB::calculate_proj_matrix_elems_for_one_bin(stir::ProjMatrixElemsForOneBin&) const (ProjMatrixByBinSPECTUB.cxx:862)
+==1140994==    by 0x63C23BC: stir::ProjMatrixByBin::get_proj_matrix_elems_for_one_bin(stir::ProjMatrixElemsForOneBin&, stir::Bin const&) const (ProjMatrixByBin.inl:65)
+==1140994==    by 0x64DC1DD: stir::BackProjectorByBinUsingProjMatrixByBin::actual_back_project(stir::DiscretisedDensity<3, float>&, stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBinUsingProjMatrixByBin.cxx:146)
+==1140994==    by 0x64814C1: stir::BackProjectorByBin::actual_back_project(stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBin.cxx:389)
+==1140994==    by 0x648178B: stir::BackProjectorByBin::back_project(stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBin.cxx:299)
+==1140994==    by 0x65478DE: stir::distributable_computation(std::shared_ptr<stir::ForwardProjectorByBin> const&, std::shared_ptr<stir::BackProjectorByBin> const&, std::shared_ptr<stir::DataSymmetriesForViewSegmentNumbers> const&, stir::DiscretisedDensity<3, float>*, stir::DiscretisedDensity<3, float> const*, std::shared_ptr<stir::ProjData> const&, bool, int, int, int, int, bool, double*, std::shared_ptr<stir::ProjData> const&, std::shared_ptr<stir::BinNormalisation>, double, double, void (*)(std::shared_ptr<stir::ForwardProjectorByBin> const&, std::shared_ptr<stir::BackProjectorByBin> const&, stir::RelatedViewgrams<float>*, int&, int&, double*, stir::RelatedViewgrams<float> const*, stir::RelatedViewgrams<float> const*), stir::DistributedCachingInformation*) [clone ._omp_fn.0] (distributable.cxx:488)
+==1140994==    by 0x7975C0D: ??? (in /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0)
+==1140994==    by 0x4A4EB42: start_thread (pthread_create.c:442)
+==1140994==    by 0x4ADFBB3: clone (clone.S:100)
+==1140994== 
+==1140994== Conditional jump or move depends on uninitialised value(s)
+==1140994==    at 0x64C3713: SPECTUB::calc_sigma_h(SPECTUB::voxel_type, SPECTUB::collim_type) (SPECTUB_Tools.cxx:815)
+==1140994==    by 0x64C72FD: SPECTUB::fill_psf_2d(SPECTUB::psf2da_type*, SPECTUB::psf1d_type*, SPECTUB::voxel_type const&, SPECTUB::discrf_type const*, float, SPECTUB::wmh_type&) (SPECTUB_Weight3d.cxx:599)
+==1140994==    by 0x64C8D91: SPECTUB::wm_calculation(int, SPECTUB::angle_type const*, SPECTUB::voxel_type, SPECTUB::bin_type, SPECTUB::volume_type const&, SPECTUB::proj_type const&, float const*, bool const*, bool const*, int, SPECTUB::discrf_type const*, int const*, SPECTUB::wm_da_type&, SPECTUB::wmh_type&, float const*) (SPECTUB_Weight3d.cxx:195)
+==1140994==    by 0x64BE7DF: stir::ProjMatrixByBinSPECTUB::compute_one_subset(int, float const*) const (ProjMatrixByBinSPECTUB.cxx:799)
+==1140994==    by 0x64BF0B9: stir::ProjMatrixByBinSPECTUB::calculate_proj_matrix_elems_for_one_bin(stir::ProjMatrixElemsForOneBin&) const (ProjMatrixByBinSPECTUB.cxx:862)
+==1140994==    by 0x63C23BC: stir::ProjMatrixByBin::get_proj_matrix_elems_for_one_bin(stir::ProjMatrixElemsForOneBin&, stir::Bin const&) const (ProjMatrixByBin.inl:65)
+==1140994==    by 0x64DC1DD: stir::BackProjectorByBinUsingProjMatrixByBin::actual_back_project(stir::DiscretisedDensity<3, float>&, stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBinUsingProjMatrixByBin.cxx:146)
+==1140994==    by 0x64814C1: stir::BackProjectorByBin::actual_back_project(stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBin.cxx:389)
+==1140994==    by 0x648178B: stir::BackProjectorByBin::back_project(stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBin.cxx:299)
+==1140994==    by 0x65478DE: stir::distributable_computation(std::shared_ptr<stir::ForwardProjectorByBin> const&, std::shared_ptr<stir::BackProjectorByBin> const&, std::shared_ptr<stir::DataSymmetriesForViewSegmentNumbers> const&, stir::DiscretisedDensity<3, float>*, stir::DiscretisedDensity<3, float> const*, std::shared_ptr<stir::ProjData> const&, bool, int, int, int, int, bool, double*, std::shared_ptr<stir::ProjData> const&, std::shared_ptr<stir::BinNormalisation>, double, double, void (*)(std::shared_ptr<stir::ForwardProjectorByBin> const&, std::shared_ptr<stir::BackProjectorByBin> const&, stir::RelatedViewgrams<float>*, int&, int&, double*, stir::RelatedViewgrams<float> const*, stir::RelatedViewgrams<float> const*), stir::DistributedCachingInformation*) [clone ._omp_fn.0] (distributable.cxx:488)
+==1140994==    by 0x7975C0D: ??? (in /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0)
+==1140994==    by 0x4A4EB42: start_thread (pthread_create.c:442)
+==1140994== 
+==1140994== Conditional jump or move depends on uninitialised value(s)
+==1140994==    at 0x64C8B24: SPECTUB::wm_calculation(int, SPECTUB::angle_type const*, SPECTUB::voxel_type, SPECTUB::bin_type, SPECTUB::volume_type const&, SPECTUB::proj_type const&, float const*, bool const*, bool const*, int, SPECTUB::discrf_type const*, int const*, SPECTUB::wm_da_type&, SPECTUB::wmh_type&, float const*) (SPECTUB_Weight3d.cxx:251)
+==1140994==    by 0x64BE7DF: stir::ProjMatrixByBinSPECTUB::compute_one_subset(int, float const*) const (ProjMatrixByBinSPECTUB.cxx:799)
+==1140994==    by 0x64BF0B9: stir::ProjMatrixByBinSPECTUB::calculate_proj_matrix_elems_for_one_bin(stir::ProjMatrixElemsForOneBin&) const (ProjMatrixByBinSPECTUB.cxx:862)
+==1140994==    by 0x63C23BC: stir::ProjMatrixByBin::get_proj_matrix_elems_for_one_bin(stir::ProjMatrixElemsForOneBin&, stir::Bin const&) const (ProjMatrixByBin.inl:65)
+==1140994==    by 0x64DC1DD: stir::BackProjectorByBinUsingProjMatrixByBin::actual_back_project(stir::DiscretisedDensity<3, float>&, stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBinUsingProjMatrixByBin.cxx:146)
+==1140994==    by 0x64814C1: stir::BackProjectorByBin::actual_back_project(stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBin.cxx:389)
+==1140994==    by 0x648178B: stir::BackProjectorByBin::back_project(stir::RelatedViewgrams<float> const&, int, int, int, int) (BackProjectorByBin.cxx:299)
+==1140994==    by 0x65478DE: stir::distributable_computation(std::shared_ptr<stir::ForwardProjectorByBin> const&, std::shared_ptr<stir::BackProjectorByBin> const&, std::shared_ptr<stir::DataSymmetriesForViewSegmentNumbers> const&, stir::DiscretisedDensity<3, float>*, stir::DiscretisedDensity<3, float> const*, std::shared_ptr<stir::ProjData> const&, bool, int, int, int, int, bool, double*, std::shared_ptr<stir::ProjData> const&, std::shared_ptr<stir::BinNormalisation>, double, double, void (*)(std::shared_ptr<stir::ForwardProjectorByBin> const&, std::shared_ptr<stir::BackProjectorByBin> const&, stir::RelatedViewgrams<float>*, int&, int&, double*, stir::RelatedViewgrams<float> const*, stir::RelatedViewgrams<float> const*), stir::DistributedCachingInformation*) [clone ._omp_fn.0] (distributable.cxx:488)
+==1140994==    by 0x7975C0D: ??? (in /usr/lib/x86_64-linux-gnu/libgomp.so.1.0.0)
+==1140994==    by 0x4A4EB42: start_thread (pthread_create.c:442)
+==1140994==    by 0x4ADFBB3: clone (clone.S:100)
+==1140994== 
+==1140994== 
+==1140994== More than 10000000 total errors detected.  I'm not reporting any more.
+==1140994== Final error counts will be inaccurate.  Go fix your program!
+==1140994== Rerun with --error-limit=no to disable this cutoff.  Note
+==1140994== that errors may occur in your program without prior warning from
+==1140994== Valgrind, because errors are no longer being displayed.
+==1140994== 

@@ -4,7 +4,7 @@ tmp_*.s
 
 # log files 
 *.txt
-!valgrind-output-full*.txt
+!valgrind*.txt
 
 #brainweb
 subject_*
@@ -12,9 +12,5 @@ subject_*
 #valgrind core file
 *.core*
 
-/outputs
-
-# image outputs
-*.ahv
-*.hv
-*.v
+.pytest_cache*
+__pycache__*

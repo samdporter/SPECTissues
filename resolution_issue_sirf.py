@@ -25,8 +25,5 @@ acq_model_matrix.set_resolution_model(0.93, 0.03, False)
 acq_model = AcquisitionModelUsingMatrix(acq_model_matrix)
 
 #%%
-obj_fun = make_Poisson_loglikelihood(templ_sino)
-obj_fun.set_acquisition_model(acq_model)
-
-#%%
-obj_fun.set_up(im)
+acq_model.set_up(templ_sino, im)
+# %%

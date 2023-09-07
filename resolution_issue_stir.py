@@ -18,10 +18,8 @@ acq_model_matrix = ProjMatrixByBinSPECTUB() # create a SPECT porjection matrix o
 acq_model_matrix.set_keep_all_views_in_cache(keep_views_in_cache) # This keeps views in memory for a speed improvement
 acq_model_matrix.set_resolution_model(0.93, 0.03, False) # Set a resolution model (just a guess!)
 projector = ProjectorByBinPairUsingProjMatrixByBin(acq_model_matrix)
-
 #%%
-obj_function = PoissonLogLikelihoodWithLinearModelForMeanAndProjData3DFloat()
-obj_function.set_proj_data_sptr(templ_sino)
-obj_function.set_projector_pair_sptr(projector)
+
+projdata = ProjDataInMemory(templ_sino.get_exam_info(), templ_sino.get_proj_data_info())
+projector.set_up(templ_sino.get_proj_data_info(), target)
 # %%
-obj_function.set_up(target)

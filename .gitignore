@@ -14,3 +14,6 @@ subject_*
 
 .pytest_cache*
 __pycache__*
+
+# stahis data
+Stathis_NEMA

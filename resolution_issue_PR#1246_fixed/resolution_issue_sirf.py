@@ -4,16 +4,16 @@ from sirf.STIR import *
 AcquisitionData.set_storage_scheme('memory')
 
 import os
-path = os.path.dirname(os.path.realpath(__file__))
+data_path = "/home/sam/working/SPECT_issues/test_data"
 
 keep_views_in_cache = True # 
 
 msg = MessageRedirector("info.txt", "warnings.txt", "error.txt")
 
-templ_sino = AcquisitionData(os.path.join(path,"test_data/peak_1_projdata__f1g1d0b0.hs"))
+templ_sino = AcquisitionData(os.path.join(data_path, "peak_1_projdata__f1g1d0b0.hs"))
 
 # create an empty image using the template data
-im = ImageData(os.path.join(path, "test_data/NEMA_SPECT_template.hv"))
+im = ImageData(os.path.join(data_path, "NEMA_SPECT_template.hv"))
 
 #%%
 acq_model_matrix = SPECTUBMatrix()
